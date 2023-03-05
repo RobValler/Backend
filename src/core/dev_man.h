@@ -11,7 +11,7 @@
 
 #include <memory>
 
-class CProtocolROS;
+class CRosWrap;
 
 class CDeviceMan : public IComponent
 {
@@ -25,6 +25,6 @@ public:
     bool Stop() override;
 
 private:
-    std::shared_ptr<CProtocolROS> mp_proto_ros;
+    std::shared_ptr<CRosWrap> mp_proto_ros;
 
 };

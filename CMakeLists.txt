@@ -18,6 +18,15 @@ else()
     message("The build config is RELEASE")
 endif()
 
+
+option(ROS_ENABLE "Enabled ROS2" OFF)
+if(ROS_ENABLE)
+    find_package(ament_cmake REQUIRED)
+    find_package(rclcpp REQUIRED)
+    find_package(sensor_msgs REQUIRED)
+endif(ROS_ENABLE)
+
+
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/src/core)
 include_directories(${CMAKE_SOURCE_DIR}/src/pipeline)
@@ -38,12 +47,17 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} )
 
 target_link_libraries(${PROJECT_NAME}
                         CONAN_PKG::Logger
-                        #CONAN_PKG::Factory
                         Factory
                         ProtoRos
                         )
-
-target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
+#target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
 
 conan_target_link_libraries(${PROJECT_NAME})
+
+if(ROS_ENABLE)
+    ament_target_dependencies(${PROJECT_NAME}
+                            sensor_msgs
+                            rclcpp)
+endif(ROS_ENABLE)
+
 

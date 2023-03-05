@@ -9,7 +9,7 @@
 
 #include "dev_man.h"
 
-#include "ros2_wrap.h"
+#include "ros_wrap.h"
 
 #include "Logger.h"
 
@@ -17,7 +17,7 @@
 bool CDeviceMan::Init()
 {
     CLOG(LOGLEV_RUN, "CDeviceMan::Init()");
-    mp_proto_ros = std::make_shared<CProtocolROS>();
+    mp_proto_ros = std::make_shared<CRosWrap>();
 
     return true;
 }

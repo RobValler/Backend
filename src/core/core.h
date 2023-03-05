@@ -13,7 +13,6 @@
 #include <memory>
 
 class CFactory;
-class CProtocolROS;
 
 class CCore
 {
