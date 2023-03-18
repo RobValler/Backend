@@ -12,11 +12,13 @@
 #include <memory>
 
 class CRosWrap;
+class CProtoDummy;
+class CFactory;
 
 class CDeviceMan : public IComponent
 {
 public:
-    CDeviceMan() =default;
+    CDeviceMan(std::shared_ptr<CFactory> factory);
     ~CDeviceMan(){};
 
     bool Init() override;
@@ -26,5 +28,7 @@ public:
 
 private:
     std::shared_ptr<CRosWrap> mp_proto_ros;
+    std::shared_ptr<CProtoDummy> mp_proto_dummy;
 
+    std::shared_ptr<CFactory> mp_factory;
 };

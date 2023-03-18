@@ -49,10 +49,10 @@ target_link_libraries(${PROJECT_NAME}
                         CONAN_PKG::Logger
                         Factory
                         ProtoRos
+                        ProtoDummy
                         )
 #target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})
-
-conan_target_link_libraries(${PROJECT_NAME})
+#conan_target_link_libraries(${PROJECT_NAME})
 
 if(ROS_ENABLE)
     ament_target_dependencies(${PROJECT_NAME}

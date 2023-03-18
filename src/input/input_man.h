@@ -9,10 +9,16 @@
 
 #include "IComponent.h"
 
+#include <memory>
+#include <atomic>
+#include <thread>
+
+class CFactory;
+
 class CInputMan : public IComponent
 {
 public:
-    CInputMan() =default;
+    CInputMan(std::shared_ptr<CFactory> factory);
     ~CInputMan(){};
 
     bool Init() override;
@@ -21,6 +27,11 @@ public:
     bool Stop() override;
 
 private:
+    void ThreadFunc();
+    std::thread t_thread;
+    std::atomic<bool> m_isExitCalled{false};
+
+    std::shared_ptr<CFactory> mp_factory;
 
 
 };

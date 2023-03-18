@@ -2,6 +2,7 @@
 Logger/1.0.0
 Factory/1.0.0@user/develop
 ProtoRos/1.0.0@user/develop
+ProtoDummy/1.0.0@user/develop
 
 [generators]
 cmake

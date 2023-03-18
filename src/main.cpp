@@ -8,15 +8,20 @@
  *****************************************************************/
 
 #include "core.h"
-
+#include <chrono>
+#include <thread>
 
 
 int main(int argc, char *argv[])
 {
+    (void)argc;
+    (void)argv;
+
     CCore core;
 
     core.Start();
 
+    std::this_thread::sleep_for(std::chrono::seconds (1));
 
     core.Stop();
 

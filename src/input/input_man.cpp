@@ -9,13 +9,22 @@
 
 #include "input_man.h"
 
+#include "factory.h"
+#include "ros_wrap.h"
+
 #include "Logger.h"
 
+#include <chrono>
+
+CInputMan::CInputMan(std::shared_ptr<CFactory> factory)
+    : mp_factory(factory)
+{
+
+}
 
 bool CInputMan::Init()
 {
     CLOG(LOGLEV_RUN, "CInputMan::Init()");
-
 
     return true;
 }
@@ -23,6 +32,9 @@ bool CInputMan::Init()
 bool CInputMan::Start()
 {
     CLOG(LOGLEV_RUN, "CInputMan::Start()");
+
+    t_thread = std::thread(&CInputMan::ThreadFunc, this);
+
     return true;
 }
 
@@ -35,5 +47,22 @@ bool CInputMan::Process()
 bool CInputMan::Stop()
 {
     CLOG(LOGLEV_RUN, "CInputMan::Stop()");
+    m_isExitCalled = true;
+
+    t_thread.join();
+
     return true;
 }
+
+void CInputMan::ThreadFunc()
+{
+    while(!m_isExitCalled) {
+
+    //    std::static_pointer_cast<CRosWrap>(mp_factory->getModule("DeviceMan")
+
+
+
+        std::this_thread::sleep_for(std::chrono::milliseconds (500));
+    }
+}
+

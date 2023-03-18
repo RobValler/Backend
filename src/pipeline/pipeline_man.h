@@ -9,10 +9,14 @@
 
 #include "IComponent.h"
 
+#include <memory>
+
+class CFactory;
+
 class CPipelineMan : public IComponent
 {
 public:
-    CPipelineMan() =default;
+    CPipelineMan(std::shared_ptr<CFactory> factory);
     ~CPipelineMan(){};
 
     bool Init() override;
@@ -21,6 +25,6 @@ public:
     bool Stop() override;
 
 private:
-
+    std::shared_ptr<CFactory> mp_factory;
 
 };

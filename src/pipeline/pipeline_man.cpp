@@ -11,6 +11,11 @@
 
 #include "Logger.h"
 
+CPipelineMan::CPipelineMan(std::shared_ptr<CFactory> factory)
+    : mp_factory(factory)
+{
+
+}
 
 bool CPipelineMan::Init()
 {

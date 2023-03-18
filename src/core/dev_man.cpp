@@ -10,14 +10,22 @@
 #include "dev_man.h"
 
 #include "ros_wrap.h"
+#include "proto_dummy.h"
 
 #include "Logger.h"
 
+
+CDeviceMan::CDeviceMan(std::shared_ptr<CFactory> factory)
+    : mp_factory(factory)
+{
+
+}
 
 bool CDeviceMan::Init()
 {
     CLOG(LOGLEV_RUN, "CDeviceMan::Init()");
     mp_proto_ros = std::make_shared<CRosWrap>();
+    mp_proto_dummy = std::make_shared<CProtoDummy>();
 
     return true;
 }
@@ -36,6 +44,8 @@ bool CDeviceMan::Process()
 
 bool CDeviceMan::Stop()
 {
+    mp_proto_ros.reset();
+    mp_proto_dummy.reset();
     CLOG(LOGLEV_RUN, "CDeviceMan::Stop()");
     return true;
 }
