@@ -11,10 +11,15 @@
 
 #include "factory.h"
 #include "ros_wrap.h"
-
+#include "types.h"
 #include "Logger.h"
 
+#include "pipeline_man.h"
+#include "buffer.h"
+
+
 #include <chrono>
+#include <memory>
 
 CInputMan::CInputMan(std::shared_ptr<CFactory> factory)
     : mp_factory(factory)
@@ -60,7 +65,13 @@ void CInputMan::ThreadFunc()
 
     //    std::static_pointer_cast<CRosWrap>(mp_factory->getModule("DeviceMan")
 
+        SPipeBuffPayload s;
 
+
+        std::shared_ptr<IComponent> moo = mp_factory->getModule("PipelineBuffer");
+        std::shared_ptr<CPipelineBuffer<SPipeBuffPayload>> tmp =
+                std::static_pointer_cast<CPipelineBuffer<SPipeBuffPayload>>(moo);
+//        tmp->Write(s);
 
         std::this_thread::sleep_for(std::chrono::milliseconds (500));
     }

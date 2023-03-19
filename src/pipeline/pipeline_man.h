@@ -8,12 +8,16 @@
  *****************************************************************/
 
 #include "IComponent.h"
+#include "FactoryBase.h"
+
 
 #include <memory>
 
 class CFactory;
 
-class CPipelineMan : public IComponent
+class CPipelineMan
+        : public IComponent
+        , public CFactoryBase
 {
 public:
     CPipelineMan(std::shared_ptr<CFactory> factory);
@@ -21,6 +25,8 @@ public:
 
     bool Init() override;
     bool Start() override;
+    bool Read(std::shared_ptr<void>) override { return false; }
+    bool Write(const std::shared_ptr<void>) override { return false; }
     bool Process() override;
     bool Stop() override;
 

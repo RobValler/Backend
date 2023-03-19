@@ -8,6 +8,7 @@
  *****************************************************************/
 
 #include "pipeline_man.h"
+#include "pipeline.h"
 
 #include "Logger.h"
 
@@ -20,6 +21,9 @@ CPipelineMan::CPipelineMan(std::shared_ptr<CFactory> factory)
 bool CPipelineMan::Init()
 {
     CLOG(LOGLEV_RUN, "CPipelineMan::Init()");
+
+    addModule("Pipeline_ONE", std::make_shared<CPipeLine>());
+
 
 
     return true;

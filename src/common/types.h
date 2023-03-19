@@ -8,6 +8,9 @@
  *****************************************************************/
 
 
+#pragma once
 
-#include "pipeline.h"
 
+struct SPipeBuffPayload {
+    int id;
+};
