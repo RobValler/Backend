@@ -10,7 +10,17 @@
 
 #pragma once
 
+#include <cstdint>
+#include <string>
+
+enum class EFlow: std::uint8_t
+{
+    eNone =0,
+    eDefault,
+    eDummyToROS
+};
 
 struct SPipeBuffPayload {
-    int id;
+    EFlow id;
+    std::string test_string;
 };

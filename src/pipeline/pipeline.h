@@ -22,8 +22,8 @@ public:
     bool Init() override { return true; }
     bool Start() override { return true; }
     bool Read(std::shared_ptr<void>) override { return false; }
-    bool Write(const std::shared_ptr<void>) override { return false; }
-    bool Process() override { return true; }
+    bool Write(const std::shared_ptr<void>) override;
+    bool Process() override;
     bool Stop() override  { return true; }
 
 };

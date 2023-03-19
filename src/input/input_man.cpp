@@ -54,7 +54,13 @@ bool CInputMan::Stop()
     CLOG(LOGLEV_RUN, "CInputMan::Stop()");
     m_isExitCalled = true;
 
-    t_thread.join();
+    if(t_thread.joinable()) {
+            t_thread.join();
+     } else {
+        t_thread.detach();
+        CLOG(LOGLEV_RUN, "Thread join failed");
+        return false;
+    }
 
     return true;
 }
@@ -63,15 +69,20 @@ void CInputMan::ThreadFunc()
 {
     while(!m_isExitCalled) {
 
-    //    std::static_pointer_cast<CRosWrap>(mp_factory->getModule("DeviceMan")
-
         SPipeBuffPayload s;
+//        std::static_pointer_cast<CPipelineBuffer<SPipeBuffPayload>>(mp_factory->getModule("PipelineBuffer"))->Write(s);
 
 
-        std::shared_ptr<IComponent> moo = mp_factory->getModule("PipelineBuffer");
-        std::shared_ptr<CPipelineBuffer<SPipeBuffPayload>> tmp =
-                std::static_pointer_cast<CPipelineBuffer<SPipeBuffPayload>>(moo);
-//        tmp->Write(s);
+
+
+        if(GET_MODULE(CPipelineBuffer<SPipeBuffPayload>, mp_factory, "PipelineBuffer")->Read(s)) {
+
+        }
+
+        GET_MODULE(CPipelineBuffer<SPipeBuffPayload>, mp_factory, "PipelineBuffer")->Write(s);
+
+
+
 
         std::this_thread::sleep_for(std::chrono::milliseconds (500));
     }

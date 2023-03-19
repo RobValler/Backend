@@ -11,3 +11,20 @@
 
 #include "pipeline.h"
 
+#include "Logger.h"
+
+
+bool CPipeLine::Write(const std::shared_ptr<void>)
+{
+
+
+    return true;
+}
+
+bool CPipeLine::Process()
+{
+    CLOG(LOGLEV_RUN, "CPipeLine::Process called");
+
+
+    return true;
+}

@@ -9,8 +9,27 @@
 
 #include "pipeline_man.h"
 #include "pipeline.h"
+#include "factory.h"
+#include "types.h"
 
 #include "Logger.h"
+
+#include <string>
+#include <vector>
+
+namespace {
+
+    struct _SPipeLine {
+        EFlow ID;
+        std::string func_name;
+    };
+
+    std::vector<_SPipeLine> SPipeLine {
+        {EFlow::eNone, ""},
+        {EFlow::eDefault, "Pipeline_ONE"}
+    };
+} // namespace
+
 
 CPipelineMan::CPipelineMan(std::shared_ptr<CFactory> factory)
     : mp_factory(factory)
@@ -38,6 +57,21 @@ bool CPipelineMan::Start()
 bool CPipelineMan::Process()
 {
     CLOG(LOGLEV_RUN, "CPipelineMan::Process()");
+
+    SPipeBuffPayload s;
+
+    std::shared_ptr<void> data;
+    mp_factory->getModule("PipelineBuffer")->Read(data);
+
+
+    for(const auto& it : SPipeLine) {
+        if(s.id == it.ID) {
+            mp_factory->getModule(it.func_name)->Process();
+
+        }
+    }
+
+
     return true;
 }
 
